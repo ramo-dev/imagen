@@ -1,5 +1,6 @@
 const generateForm = document.querySelector('.generate-form');
 const imageGallery = document.querySelector('.image-gallery');
+<<<<<<< HEAD
 const OPEN_API_KEY = ''
 
 const generateAiImages = async (UserPrompt, UserImageQuantity) => {
@@ -17,6 +18,12 @@ const generateAiImages = async (UserPrompt, UserImageQuantity) => {
             response_format : "b64_json"
         })
     })
+=======
+
+const generateAiImages = (UserPrompt, UserImageQuantity) => {
+    try{
+
+>>>>>>> 3399724 (imagen text to image)
     }
     catch(error){
         console.log(error)
