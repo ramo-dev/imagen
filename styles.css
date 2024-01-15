@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
+body{
+    
+    background-image: linear-gradient(rgba(0, 165, 206, 0.836),black);
+}
 *{
     margin:0;
     padding:0;
@@ -11,7 +15,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url("./assets/image-bg.jpg");
+    /* background: url("./assets/image-bg.jpg"); */
     background-size: cover;
     position: relative;
     background-position: center;
@@ -147,7 +151,7 @@
 
 }
 
-@media screen and (max-width:760px) {
+@media screen and (max-width:620px) {
     .image-generator h1{
         font-size: 1.8rem;
     }
