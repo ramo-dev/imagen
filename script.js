@@ -1,52 +1,64 @@
 const generateForm = document.querySelector('.generate-form');
 const imageGallery = document.querySelector('.image-gallery');
-<<<<<<< HEAD
-<<<<<<< HEAD
-const OPEN_API_KEY = ''
+const OPEN_API_KEY = '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';
+let isImageGenerating = false;
+
+const updateImageCard = (imageDataArray) => {
+    imageDataArray.forEach((imageObject, index) => {
+        const imgCard = imageGallery.querySelectorAll(".image-card")[index];
+        const imgElement = imgCard.querySelector("img");
+        const downloadBtn = imgCard.querySelector(".download-btn");
+
+        // set the image source to the ai generated image data
+        const aiGeneratedImg =  `data:image/jpeg;base64,${imageObject.b64_json}`
+        imgElement.src = aiGeneratedImg;
+
+        // when the image is loaded remove the loading class and set download attributes
+        imgElement.onload = () => {
+            imgCard.classList.remove('loading');
+            downloadBtn.setAttribute("href", aiGeneratedImg);
+            downloadBtn.setAttribute("download", `${new Date().getTime()}.jpeg`);
+        }
+    })
+}
 
 const generateAiImages = async (UserPrompt, UserImageQuantity) => {
     try{
+        // send a request to OPENAI api to generate images based on user inputs
         const response = await fetch("https://api.openai.com/v1/images/generations", {
-        method: "POST",
-        headers: {
-            "Content-Type" : "application/json",
-            "Authorization" : `Bearer ${OPEN_API_KEY}`
-        },
-        body: JSON.stringify({
-            prompt : UserPrompt,
-            n : UserImageQuantity,
-            size : "512x512",
-            response_format : "b64_json"
-        })
+    method: "POST",
+    headers: {
+        "Content-Type" : "application/json",
+        "Authorization" : `Bearer ${OPEN_API_KEY}`
+    },
+    body: JSON.stringify({
+        prompt : UserPrompt,
+        n : parseInt(UserImageQuantity),
+        size : "512x512",
+        response_format : "b64_json"
     })
-=======
-=======
-const OPEN_API_KEY = ''
->>>>>>> c6e0ee8 (imagen ai image generation)
+});
 
-const generateAiImages = async (UserPrompt, UserImageQuantity) => {
-    try{
-<<<<<<< HEAD
+console.log(response.status); // Log the HTTP status code
 
->>>>>>> 3399724 (imagen text to image)
-=======
-        const response = await fetch("https://api.openai.com/v1/images/generations", {
-        method: "POST",
-        headers: {
-            "Content-Type" : "application/json",
-            "Authorization" : `Bearer ${OPEN_API_KEY}`
-        },
-        body: JSON.stringify({
-            prompt : UserPrompt,
-            n : UserImageQuantity,
-            size : "512x512",
-            response_format : "b64_json"
-        })
-    })
->>>>>>> c6e0ee8 (imagen ai image generation)
+if (!response.ok) {
+    const errorData = await response.json(); // Log the error details
+    console.error("Error details:", errorData);
+    throw new Error("Failed to generate images, please try again later.");
+}
+
+const { data } = await response.json();
+console.log("API response:", data);
+
+        updateImageCard([...data]);
+        console.log(data);
     }
+        
     catch(error){
-        console.log(error)
+        alert(error.message)
+    }
+    finally{
+        isImageGenerating = false;
     }
 }
 
@@ -54,7 +66,8 @@ const generateAiImages = async (UserPrompt, UserImageQuantity) => {
 
 const handleFormSubmission = (e) => {
     e.preventDefault();
-
+    if(isImageGenerating) return;
+        isImageGenerating = true;
 
     // Get user input and image quantity from the form
     const UserPrompt = e.srcElement[0].value;
