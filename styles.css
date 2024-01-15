@@ -201,3 +201,9 @@ body{
         width:100%;
     }
 }
+footer {
+      background: linear-gradient(to bottom, inherit, #000);
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
