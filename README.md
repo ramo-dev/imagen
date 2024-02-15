@@ -2,6 +2,8 @@
 
 ## AI Image Generator
 
+<img src="https://github.com/ramo-dev/imagen/blob/main/Imagenn.png?raw=true">
+
 ## Overview
 
 This repository hosts an AI Image Generator tool that utilizes JavaScript and CSS. The tool allows users to transform textual descriptions into images.
